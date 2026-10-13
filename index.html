@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="关系回响：用本机 SQLite 数据库整理联系人节律、标签与站内提醒。">
+  <meta name="color-scheme" content="light dark">
+  <title>关系回响 · 关系节律仪</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="image-theme">
+  <!--
+    THESIS: 回声信笺把沉默时间写成可理解的关系节律，不做销售型 CRM。
+    OWN-WORLD: 浅色矿物玻璃、艺术字标题与统一信笺底板；头像、徽章和按钮仍是真实 DOM。
+    STORY: 先看见谁值得问候，再回忆上次聊到什么，最后记录问候、稍后提醒或调整维系意愿。
+    FIRST VIEWPORT: 节律盘与待问候队列先建立全局感知，联系人信笺台账承接具体行动。
+    FORM: 回声信笺方向；每位联系人共享同一材质底板，身份数据与交互不烘焙进图片。
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+  -->
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <div class="ambient-backdrop" aria-hidden="true">
+    <span class="ambient-backdrop-image"></span>
+    <span class="ambient-backdrop-light"></span>
+    <span class="ambient-backdrop-grain"></span>
+  </div>
+
+  <div class="app-shell">
+    <aside class="side-rail" aria-label="主导航">
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <circle cx="24" cy="24" r="20"></circle>
+            <path d="M11 27c5-8 10-8 15 0s10 8 15 0"></path>
+            <path d="M11 34c5-7 10-7 15 0s10 7 15 0"></path>
+            <circle cx="24" cy="15" r="3"></circle>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-title-lockup">
+            <span class="brand-title-ornament" aria-hidden="true"><i></i><i></i></span>
+            <strong class="brand-title-art">关系回响</strong>
+            <span class="brand-title-seal" aria-hidden="true"></span>
+          </span>
+          <small>RELATIONSHIP RHYTHM</small>
+        </span>
+      </div>
+
+      <nav class="rail-nav">
+        <button class="rail-link is-active" type="button" data-scroll-target="rhythm-panel" aria-current="page">
+          <span aria-hidden="true">◷</span><span>关系节律</span>
+        </button>
+        <button class="rail-link" type="button" data-scroll-target="contacts-panel">
+          <span aria-hidden="true">◎</span><span>全部联系人</span>
+        </button>
+        <button class="rail-link" type="button" data-open-dialog="tags-dialog">
+          <span aria-hidden="true">◇</span><span>标签管理</span>
+        </button>
+        <button class="rail-link" type="button" data-open-dialog="data-dialog">
+          <span aria-hidden="true">⇩</span><span>数据与隐私</span>
+        </button>
+      </nav>
+
+      <section class="rail-index" aria-labelledby="rail-index-title">
+        <div class="rail-section-heading">
+          <h2 id="rail-index-title">关系索引</h2>
+          <span id="relationship-index-score">—</span>
+        </div>
+        <div class="index-scale" aria-hidden="true"><span></span></div>
+        <p id="relationship-index-copy">正在计算节律…</p>
+      </section>
+
+      <div class="rail-footer">
+        <div class="privacy-stamp">
+          <span class="shield" aria-hidden="true">⌾</span>
+          <span><strong>本机数据优先</strong><small>SQLite 权威存储 · 浏览器仅缓存</small></span>
+        </div>
+        <button class="rail-demo-button" type="button" data-open-dialog="data-dialog">
+          <span id="rail-data-dot" class="status-dot"></span>
+          <span id="rail-data-mode">演示数据</span>
+          <span aria-hidden="true">›</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="top-bar">
+        <div>
+          <p class="date-line" id="today-label">今天</p>
+          <p class="quiet-line">给关系留一点刚刚好的空间。</p>
+        </div>
+        <div class="top-actions">
+          <div class="search-field">
+            <label class="search-box" for="search-input">
+              <span class="sr-only">搜索联系人</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+              <input id="search-input" type="search" placeholder="搜索联系人、话题或备注" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="search-suggest" aria-autocomplete="list">
+              <kbd>⌘ K</kbd>
+            </label>
+            <div class="search-suggest" id="search-suggest" role="listbox" aria-label="搜索建议" hidden></div>
+          </div>
+          <button class="theme-toggle" id="text-scale-toggle" type="button" aria-label="阅读字号：标准。点击调大。">
+            <span data-theme-symbol aria-hidden="true">A</span>
+            <span data-theme-label>标准</span>
+          </button>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="外观：浅色。点击切换。">
+            <span data-theme-symbol aria-hidden="true">☀</span>
+            <span data-theme-label>浅色</span>
+          </button>
+          <button class="privacy-toggle" id="privacy-toggle" type="button" aria-pressed="false">
+            <span class="privacy-toggle-icon" aria-hidden="true">◉</span>
+            <span class="privacy-toggle-label">隐私模式</span>
+          </button>
+          <button class="button button-primary" type="button" data-open-dialog="import-dialog">
+            <span aria-hidden="true">＋</span> 导入数据
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section class="status-banner" aria-label="数据状态">
+          <div>
+            <span id="data-state-badge" class="data-badge">演示数据</span>
+            <p id="data-state-copy">当前展示的是合成联系人。导入会先预览，确认后才会替换或合并。</p>
+          </div>
+          <button class="text-button" type="button" data-open-dialog="data-dialog">了解数据边界 <span aria-hidden="true">→</span></button>
+        </section>
+
+        <section class="dashboard-section" id="rhythm-panel" aria-labelledby="rhythm-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">30 DAY RELATIONSHIP CHRONOMETER</p>
+              <h1 id="rhythm-title">关系节律</h1>
+            </div>
+            <div class="section-meta">
+              <span><i class="legend-dot due"></i> 已到期</span>
+              <span><i class="legend-dot upcoming"></i> 将到期</span>
+              <span><i class="legend-dot steady"></i> 节律内</span>
+            </div>
+          </div>
+
+          <div class="rhythm-layout">
+            <article class="chronometer-panel" aria-labelledby="chronometer-title">
+              <header class="panel-heading">
+                <div>
+                  <h2 id="chronometer-title">30 天关系节律仪</h2>
+                  <p>以最近一次真实消息或手动问候为起点</p>
+                </div>
+                <button class="icon-button" type="button" data-open-dialog="data-dialog" aria-label="查看节律说明">?</button>
+              </header>
+
+              <div class="chronometer-wrap" id="chronometer" aria-label="联系人距上次互动天数分布">
+                <div class="chronometer-face">
+                  <svg class="dial-ticks" id="dial-ticks" viewBox="0 0 440 440" aria-hidden="true"></svg>
+                  <span class="dial-hand" aria-hidden="true"></span>
+                  <div class="dial-label label-zero">0</div>
+                  <div class="dial-label label-seven">7</div>
+                  <div class="dial-label label-fifteen">15</div>
+                  <div class="dial-label label-thirty">30</div>
+                  <div class="contact-nodes" id="contact-nodes"></div>
+                  <div class="dial-core">
+                    <span>现在</span>
+                    <strong id="due-count">0</strong>
+                    <p>位联系人<br>值得问候</p>
+                    <button class="dial-action" type="button" data-set-due-filter="true">查看名单</button>
+                  </div>
+                </div>
+              </div>
+
+              <footer class="chronometer-footer">
+                <p><span class="engraved-mark">30</span> 默认节律可以在设置中调整；每位联系人也可以有自己的周期。</p>
+                <button class="text-button" type="button" data-open-dialog="settings-dialog">调整节律 <span aria-hidden="true">→</span></button>
+              </footer>
+            </article>
+
+            <article class="queue-panel" aria-labelledby="queue-title">
+              <header class="panel-heading">
+                <div>
+                  <h2 id="queue-title">今天值得问候</h2>
+                  <p>按逾期程度排序，只显示“需要维系”的人</p>
+                </div>
+                <span class="queue-count" id="queue-count">0 位</span>
+              </header>
+              <div class="queue-list" id="queue-list"></div>
+              <section class="queue-upcoming" id="queue-upcoming" aria-labelledby="queue-upcoming-title" hidden>
+                <h3 id="queue-upcoming-title">7 天内将到期</h3>
+                <div id="queue-upcoming-list"></div>
+              </section>
+              <section class="queue-upcoming" id="queue-dates" aria-labelledby="queue-dates-title" hidden>
+                <h3 id="queue-dates-title">临近生日与纪念日</h3>
+                <div id="queue-dates-list"></div>
+              </section>
+              <button class="queue-more" id="queue-more" type="button" data-set-due-filter="true">查看全部待问候联系人 <span aria-hidden="true">→</span></button>
+            </article>
+          </div>
+        </section>
+
+        <section class="contacts-section" id="contacts-panel" aria-labelledby="contacts-title">
+          <div class="contacts-heading">
+            <div>
+              <p class="section-kicker">RELATIONSHIP LEDGER</p>
+              <h2 id="contacts-title" tabindex="-1">联系人台账</h2>
+            </div>
+            <div class="contacts-heading-actions">
+              <label class="ledger-sort-field">
+                <span class="sr-only">联系人排序方式</span>
+                <select id="ledger-sort" aria-label="联系人排序方式">
+                  <option value="priority">按提醒优先排序</option>
+                  <option value="recent">按最近联系排序</option>
+                  <option value="name">按姓名排序</option>
+                </select>
+              </label>
+              <div>
+                <p id="contact-result-count" aria-live="polite">0 位联系人</p>
+                <small id="auto-hidden-rule">满 600 天未互动自动隐藏，数据仍保留</small>
+              </div>
+              <button class="button button-secondary auto-hidden-toggle" id="hidden-contact-filter" type="button" aria-pressed="false" aria-describedby="auto-hidden-rule">查看已隐藏（0）</button>
+            </div>
+          </div>
+
+          <div class="filter-bench" aria-label="联系人筛选">
+            <fieldset class="filter-group" data-filter-group="frequency">
+              <legend>联系频率 <button class="help-dot" type="button" aria-label="联系频率说明" data-open-dialog="settings-dialog">?</button></legend>
+              <div class="segmented-control">
+                <button type="button" class="is-selected" data-filter-value="all">全部</button>
+                <button type="button" data-filter-value="infrequent">不常联系人</button>
+                <button type="button" data-filter-value="frequent">常联系人</button>
+              </div>
+            </fieldset>
+            <fieldset class="filter-group" data-filter-group="maintenance">
+              <legend>维系意愿 <button class="help-dot" type="button" aria-label="维系意愿说明" data-open-dialog="settings-dialog">?</button></legend>
+              <div class="segmented-control">
+                <button type="button" class="is-selected" data-filter-value="all">全部</button>
+                <button type="button" data-filter-value="maintain">需要维系</button>
+                <button type="button" data-filter-value="ignore">不需要维系</button>
+              </div>
+            </fieldset>
+            <label class="select-field">
+              <span>自定义标签</span>
+              <select id="tag-filter"><option value="all">全部标签</option></select>
+            </label>
+            <label class="select-field">
+              <span>上次联系</span>
+              <select id="time-range-filter">
+                <option value="all">全部时段</option>
+                <option value="0-6">0–6 天</option>
+                <option value="7-13">7–13 天</option>
+                <option value="14-29">14–29 天</option>
+                <option value="30-59">30–59 天</option>
+                <option value="60-179">60–179 天</option>
+                <option value="180+">180 天以上</option>
+                <option value="unknown">待校验/未知</option>
+              </select>
+            </label>
+            <div class="filter-bench-actions">
+              <label class="due-switch">
+                <input id="due-only-filter" type="checkbox">
+                <span class="switch-track" aria-hidden="true"><i></i></span>
+                <span>仅看待问候</span>
+              </label>
+              <button class="button button-secondary" id="reset-filters" type="button">重置筛选</button>
+            </div>
+          </div>
+
+          <section class="batch-organizer" id="batch-organizer" aria-labelledby="batch-organizer-title">
+            <header class="batch-organizer-heading">
+              <div>
+                <p class="section-kicker">QUICK ORGANIZE</p>
+                <h3 id="batch-organizer-title">快速整理：先选标签，再勾联系人</h3>
+              </div>
+              <p>只处理当前页已勾选的人，不会再把整页或全部筛选结果一次性改掉。</p>
+            </header>
+            <div class="batch-organizer-steps">
+              <section class="batch-step batch-step-tag" id="batch-step-tag" aria-labelledby="batch-step-tag-title">
+                <div class="batch-step-heading">
+                  <span class="batch-step-number" aria-hidden="true">1</span>
+                  <div>
+                    <h4 id="batch-step-tag-title">确定关系标签</h4>
+                    <p>选择已有标签，也可以现场创建自己的关系标签。</p>
+                  </div>
+                </div>
+                <div class="batch-tag-picker">
+                  <label class="select-field" for="bulk-tag-select">
+                    <span>要贴的标签</span>
+                    <select id="bulk-tag-select" aria-describedby="batch-write-status"><option value="">选择标签</option></select>
+                  </label>
+                  <button class="text-button bulk-tag-form-open" id="show-bulk-tag-form" type="button" aria-controls="bulk-tag-form" aria-expanded="false">＋ 新建关系标签</button>
+                </div>
+                <div class="quick-tag-panel" id="quick-tag-panel">
+                  <span>高频标签</span>
+                  <div id="quick-bulk-tag-list" class="quick-bulk-tag-list"></div>
+                </div>
+                <form class="bulk-tag-form" id="bulk-tag-form" hidden>
+                  <label for="bulk-new-tag-name">自定义关系名称</label>
+                  <div>
+                    <input id="bulk-new-tag-name" maxlength="18" autocomplete="off" placeholder="例如：羽毛球搭子">
+                    <button class="button button-primary" type="submit">创建并选中</button>
+                    <button class="button button-ghost" id="bulk-tag-form-cancel" type="button">取消</button>
+                  </div>
+                  <p class="form-error" id="bulk-tag-form-error" role="alert" hidden></p>
+                </form>
+              </section>
+
+              <section class="batch-step batch-step-contacts is-disabled" id="batch-step-contacts" aria-labelledby="batch-step-contacts-title" aria-describedby="batch-selection-hint">
+                <div class="batch-step-heading">
+                  <span class="batch-step-number" aria-hidden="true">2</span>
+                  <div>
+                    <h4 id="batch-step-contacts-title">勾选当前页联系人</h4>
+                    <p id="batch-selection-hint">选好标签后，在下方名单中逐个勾选。</p>
+                  </div>
+                </div>
+                <div class="batch-selection-counts" aria-live="polite">
+                  <span id="batch-page-count">本页 0 人</span>
+                  <span id="batch-selected-count">已选 0 人</span>
+                </div>
+                <div class="batch-selection-actions">
+                  <button class="button button-secondary" id="select-page-contacts" type="button" disabled>全选本页</button>
+                  <button class="button button-ghost" id="clear-contact-selection" type="button" disabled>清空选择</button>
+                </div>
+              </section>
+
+              <section class="batch-step batch-step-apply is-disabled" id="batch-step-apply" aria-labelledby="batch-step-apply-title">
+                <div class="batch-step-heading">
+                  <span class="batch-step-number" aria-hidden="true">3</span>
+                  <div>
+                    <h4 id="batch-step-apply-title">一次性应用</h4>
+                    <p>确认人数后，再加入或移除选中的关系标签。</p>
+                  </div>
+                </div>
+                <div class="quick-batch-actions">
+                  <button class="button button-primary" id="batch-add-tag" type="button" aria-describedby="batch-write-status" disabled>加入该标签</button>
+                  <button class="button button-secondary" id="batch-remove-tag" type="button" aria-describedby="batch-write-status" disabled>移除该标签</button>
+                </div>
+                <p class="batch-write-status" id="batch-write-status" role="status" aria-live="polite">第 1 步：请先选择一个关系标签。</p>
+              </section>
+            </div>
+          </section>
+
+          <div class="table-wrap">
+            <table class="contact-table">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <label class="contact-select-control contact-select-page" for="select-page-checkbox">
+                      <input id="select-page-checkbox" type="checkbox" aria-label="全选当前页联系人" disabled>
+                      <span>联系人</span>
+                    </label>
+                  </th>
+                  <th scope="col">关系坐标</th>
+                  <th scope="col">最近回响</th>
+                  <th scope="col">上次聊到</th>
+                  <th scope="col">下次想起</th>
+                  <th scope="col"><span class="sr-only">关系操作</span></th>
+                </tr>
+              </thead>
+              <tbody id="contact-table-body"></tbody>
+            </table>
+            <nav class="ledger-pagination" id="ledger-pagination" aria-label="联系人分页">
+              <p id="pagination-summary">第 0–0 位，共 0 位</p>
+              <label>每页
+                <select id="page-size" aria-label="每页联系人数量">
+                  <option value="25">25</option>
+                  <option value="50" selected>50</option>
+                </select>
+              </label>
+              <div>
+                <button class="button button-secondary" id="page-previous" type="button" aria-label="上一页">上一页</button>
+                <span id="page-indicator" aria-live="polite">第 1 / 1 页</span>
+                <button class="button button-secondary" id="page-next" type="button" aria-label="下一页">下一页</button>
+              </div>
+            </nav>
+            <div class="empty-state" id="contact-empty" hidden>
+              <span aria-hidden="true">◌</span>
+              <h3 id="contact-empty-title">没有符合当前筛选的联系人</h3>
+              <p id="contact-empty-copy">可以重置筛选，或者导入一份新的联系人数据。</p>
+              <button class="button button-secondary" type="button" data-reset-filters="true">重置筛选</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="privacy-footnote" aria-labelledby="privacy-note-title">
+          <span class="privacy-footnote-mark" aria-hidden="true">⌾</span>
+          <div>
+            <h2 id="privacy-note-title">这是站内节律提醒，不是后台自动发信</h2>
+            <p>网站会在你打开时重新计算谁已到期；关闭页面后无法保证系统通知。它不会读取未授权的微信数据库，也不会替你发送消息。</p>
+          </div>
+          <div class="privacy-footnote-actions">
+            <button class="text-button" type="button" data-open-dialog="data-dialog">数据与隐私说明 <span aria-hidden="true">→</span></button>
+            <a class="text-button" href="./share.html">分享给朋友 <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog class="app-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
+    <div class="dialog-frame dialog-contact-frame">
+      <header class="dialog-header">
+        <div>
+          <span class="dialog-kicker">CONTACT DETAIL</span>
+          <h2 id="contact-dialog-title">联系人关系卡</h2>
+        </div>
+        <button class="dialog-close icon-button" type="button" aria-label="关闭联系人关系卡">×</button>
+      </header>
+      <div id="contact-dialog-content"></div>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog dialog-wide" id="import-dialog" aria-labelledby="import-dialog-title">
+    <div class="dialog-frame">
+      <header class="dialog-header">
+        <div>
+          <span class="dialog-kicker">LOCAL IMPORT</span>
+          <h2 id="import-dialog-title">导入联系人来源</h2>
+        </div>
+        <button class="dialog-close icon-button" type="button" aria-label="关闭导入窗口">×</button>
+      </header>
+      <div class="dialog-body import-layout">
+        <section class="import-source-col">
+          <span class="data-badge">先预览，后提交</span>
+          <div class="source-tabs" id="source-tabs" role="tablist" aria-label="联系人来源">
+            <button class="source-tab is-active" type="button" role="tab" aria-selected="true" data-source-tab="file" id="source-tab-file" aria-controls="source-panel-file">
+              本机文件<em data-tab-badge>推荐</em>
+            </button>
+            <button class="source-tab" type="button" role="tab" aria-selected="false" data-source-tab="weflow" id="source-tab-weflow" aria-controls="source-panel-weflow">
+              WeFlow 直连<em data-tab-badge>仅 Windows</em>
+            </button>
+            <button class="source-tab" type="button" role="tab" aria-selected="false" data-source-tab="bridge" id="source-tab-bridge" aria-controls="source-panel-bridge">
+              读取器桥接<em data-tab-badge>即将支持</em>
+            </button>
+          </div>
+          <p class="source-tab-note" id="source-tab-note">JSON / CSV 都可以；解析结果先在右侧预览，确认后才写入。</p>
+
+          <div class="source-panel" id="source-panel-file" role="tabpanel" aria-labelledby="source-tab-file">
+            <label class="file-drop is-recommended" id="file-drop">
+              <input id="import-file" type="file" accept=".json,.csv,application/json,text/csv">
+              <span class="file-drop-icon" aria-hidden="true">⇧</span>
+              <strong>选择联系人 JSON 或 CSV</strong>
+              <small>也可以直接把文件拖到这里</small>
+            </label>
+            <a class="source-format-link" href="./samples/contact-source.sample.json" download>下载格式样例 <span aria-hidden="true">↓</span></a>
+            <details class="format-details">
+              <summary>支持哪些文件？</summary>
+              <ul>
+                <li>关系回响通用数据源 JSON（<code>format: relationship-care-source</code>，见样例）</li>
+                <li>WeFlow 导出的会话 / 消息 JSON</li>
+                <li>含姓名、最近消息、时间等字段的通用 CSV</li>
+                <li>单文件最大 5 MB；群聊与公众号不进入名单</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="source-panel" id="source-panel-weflow" role="tabpanel" aria-labelledby="source-tab-weflow" hidden>
+            <p class="bridge-note" data-weflow-unavailable>
+              WeFlow 是 Windows 端的微信联系人提取器，这台 Mac 上没有它的 API。请先用「本机文件」导入 JSON / CSV，或者等读取器桥接接入。
+            </p>
+            <section class="weflow-connect" aria-labelledby="weflow-connect-title" data-provider-id="weflow-http-win32" hidden>
+              <div>
+                <span class="data-badge">WINDOWS 本机直连</span>
+                <h4 id="weflow-connect-title">用 WeFlow 提取联系人</h4>
+                <p>先在 WeFlow 设置 → API 服务 里启动，再回到这里连接；只向 <code>127.0.0.1</code> 请求联系人、会话时间和最近一条消息。</p>
+              </div>
+              <div class="weflow-fields">
+                <label>端口<input id="weflow-port" type="number" value="5031" min="1" max="65535" inputmode="numeric" disabled></label>
+                <label>Access Token<input id="weflow-token" type="password" maxlength="2048" autocomplete="off" placeholder="从 WeFlow API 服务设置复制" disabled></label>
+              </div>
+              <button class="button button-primary" id="weflow-preview" type="button" disabled>连接并生成预览</button>
+              <p class="weflow-status" id="weflow-status" aria-live="polite">Access Token 只驻留本次连接内存；不会写进 SQLite 或浏览器缓存。</p>
+            </section>
+          </div>
+
+          <div class="source-panel" id="source-panel-bridge" role="tabpanel" aria-labelledby="source-tab-bridge" hidden>
+            <div class="bridge-note">
+              <h4>Mac 读取器桥接（准备中）</h4>
+              <p>选定 Mac 微信读取软件后，让它输出与「格式样例」相同的 JSON 合同即可接入；标签、提醒和整理功能不用改。当前请先用「本机文件」导入。</p>
+            </div>
+          </div>
+        </section>
+        <section class="import-preview" aria-live="polite">
+          <div class="preview-placeholder" id="import-placeholder">
+            <span aria-hidden="true">⌁</span>
+            <h3 id="import-placeholder-title">等待选择联系人来源</h3>
+            <p id="import-placeholder-copy">解析结果、警告和联系人预览会显示在这里。</p>
+          </div>
+          <div id="import-result" hidden>
+            <div class="preview-summary">
+              <div><span>识别联系人</span><strong id="import-contact-count">0</strong></div>
+              <div><span>待校验联系人</span><strong id="import-warning-count">0</strong></div>
+              <div><span>系统警告组</span><strong id="import-warning-groups">0</strong></div>
+            </div>
+            <p class="preview-source" id="import-source"></p>
+            <div class="preview-list" id="import-preview-list"></div>
+            <details class="warning-details" id="import-warning-details">
+              <summary>查看解析警告</summary>
+              <ul id="import-warning-list"></ul>
+            </details>
+          </div>
+          <p class="form-error" id="import-error" role="alert" hidden></p>
+        </section>
+      </div>
+      <footer class="dialog-footer">
+        <label class="import-mode-field">导入方式
+          <select id="import-mode">
+            <option value="merge">合并到当前联系人</option>
+            <option value="replace">替换当前联系人</option>
+          </select>
+        </label>
+        <div>
+          <button class="button button-ghost dialog-close" type="button">取消</button>
+          <button class="button button-primary" id="commit-import" type="button" disabled>确认导入</button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog" id="tags-dialog" aria-labelledby="tags-dialog-title">
+    <div class="dialog-frame">
+      <header class="dialog-header">
+        <div>
+          <span class="dialog-kicker">TAG INDEX</span>
+          <h2 id="tags-dialog-title">标签管理</h2>
+        </div>
+        <button class="dialog-close icon-button" type="button" aria-label="关闭标签管理">×</button>
+      </header>
+      <div class="dialog-body">
+        <div class="system-label-note">
+          <strong>四个系统标签来自两条独立分类轴</strong>
+          <p>“常 / 不常联系”由时间自动计算；“需要 / 不需要维系”由你选择。系统标签不能删除，自定义标签可以增减。</p>
+        </div>
+        <div class="system-label-grid" id="system-label-grid"></div>
+        <form class="tag-form" id="tag-form">
+          <label for="new-tag-name">新建自定义标签</label>
+          <div><input id="new-tag-name" maxlength="18" placeholder="例如：老同学"><button class="button button-primary" type="submit">添加标签</button></div>
+          <p class="form-error" id="tag-form-error" role="alert" hidden></p>
+        </form>
+        <div class="custom-tag-list" id="custom-tag-list"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog" id="settings-dialog" aria-labelledby="settings-dialog-title">
+    <form class="dialog-frame" id="settings-form" method="dialog">
+      <header class="dialog-header">
+        <div>
+          <span class="dialog-kicker">RHYTHM SETTINGS</span>
+          <h2 id="settings-dialog-title">节律设置</h2>
+        </div>
+        <button class="dialog-close icon-button" type="button" aria-label="关闭设置">×</button>
+      </header>
+      <div class="dialog-body settings-grid">
+        <label class="number-field">多少天后算“不常联系”
+          <span><input id="inactive-days-input" type="number" min="7" max="365" step="1"><em>天</em></span>
+          <small>影响“常联系人 / 不常联系人”的自动分类。</small>
+        </label>
+        <label class="number-field">默认问候节律
+          <span><input id="cadence-days-input" type="number" min="7" max="365" step="1"><em>天</em></span>
+          <small>联系人未单独设置时，默认使用这个周期。</small>
+        </label>
+        <div class="number-field text-scale-field">
+          <span id="text-scale-field-label">阅读字号</span>
+          <div class="text-scale-options" role="group" aria-labelledby="text-scale-field-label">
+            <button type="button" class="choice-button" data-text-scale-option="comfortable" aria-pressed="true">标准</button>
+            <button type="button" class="choice-button" data-text-scale-option="large" aria-pressed="false">大</button>
+            <button type="button" class="choice-button" data-text-scale-option="extra-large" aria-pressed="false">特大</button>
+          </div>
+          <small>立即生效；只影响这台设备上的显示大小，不改变数据。</small>
+        </div>
+        <div class="system-label-note full-span">
+          <strong>提醒边界</strong>
+          <p>当前版本只在打开网站时计算到期状态。若需要关站后仍可靠提醒，应增加本地 Agent 或操作系统计划任务。</p>
+        </div>
+      </div>
+      <footer class="dialog-footer"><span></span><div><button class="button button-ghost dialog-close" type="button">取消</button><button class="button button-primary" type="submit">保存设置</button></div></footer>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog dialog-wide" id="data-dialog" aria-labelledby="data-dialog-title">
+    <div class="dialog-frame">
+      <header class="dialog-header">
+        <div>
+          <span class="dialog-kicker">DATA & PRIVACY</span>
+          <h2 id="data-dialog-title">数据与隐私</h2>
+        </div>
+        <button class="dialog-close icon-button" type="button" aria-label="关闭数据与隐私">×</button>
+      </header>
+      <div class="dialog-body data-grid">
+        <section>
+          <span class="data-badge">本机 SQLite</span>
+          <h3>正式数据写入本机数据目录</h3>
+          <p>SQLite 是唯一权威来源；Windows 默认保存在项目同盘数据目录，Mac 默认使用 Application Support，也可自行指定路径。数据库：<code id="storage-db-path">正在连接本机服务…</code></p>
+        </section>
+        <section>
+          <span class="data-badge muted">滚动快照</span>
+          <h3>浏览器清理不再删除主数据</h3>
+          <p>每次变更保留历史，至少每小时或重大恢复时生成独立 SQLite 快照。最近备份：<strong id="storage-backup-time">尚未创建</strong></p>
+        </section>
+        <section>
+          <span class="data-badge muted">可替换的数据源</span>
+          <h3>WeFlow 不是数据库，只是 Windows 提取器</h3>
+          <p>默认通过 127.0.0.1:5031 读取 WeFlow；Mac 可改用通用文件或未来的读取器桥接。Token 仅保留在当前操作内；状态：<strong id="storage-health">正在检查</strong></p>
+        </section>
+        <section>
+          <span class="data-badge muted">隐私边界</span>
+          <h3>本地不等于加密保险箱</h3>
+          <p>拥有这台电脑账户权限的人仍可能读取数据库；存储磁盘损坏也会影响同盘快照。关闭应用后不保证通知，重新打开时才会计算提醒。</p>
+        </section>
+      </div>
+      <footer class="data-actions">
+        <div>
+          <button class="button button-secondary" id="create-disk-backup" type="button">立即创建本机快照</button>
+          <button class="button button-secondary" id="export-backup" type="button">导出 JSON</button>
+          <button class="button button-secondary" id="export-csv" type="button">导出 CSV</button>
+          <label class="button button-secondary file-button">恢复备份<input id="backup-file" type="file" accept=".json,application/json"></label>
+        </div>
+        <div>
+          <a class="button button-secondary" href="./share.html">分享给朋友</a>
+          <button class="button button-ghost" id="restore-demo" type="button">恢复演示数据</button>
+          <button class="button button-danger" id="clear-data" type="button">清空当前数据</button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog class="confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-copy">
+    <div class="confirm-frame">
+      <span aria-hidden="true">!</span>
+      <h2 id="confirm-title">确认操作</h2>
+      <p id="confirm-copy"></p>
+      <div><button class="button button-ghost" id="confirm-cancel" type="button">取消</button><button class="button button-danger" id="confirm-action" type="button">确认</button></div>
+    </div>
+  </dialog>
+
+  <div class="feedback-stack" id="feedback-stack">
+    <section class="batch-undo-panel" id="batch-undo-panel" aria-label="最近一次快速整理" hidden>
+      <div class="batch-undo-copy">
+        <strong>最近一次快速整理</strong>
+        <span id="batch-undo-message"></span>
+      </div>
+      <button class="batch-undo-action button" id="batch-undo-action" type="button" data-undo-batch="1" aria-describedby="batch-undo-message">撤销</button>
+    </section>
+    <div class="toast" id="toast" aria-hidden="true" hidden></div>
+  </div>
+  <div class="sr-only" id="app-status" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

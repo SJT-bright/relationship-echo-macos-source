@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "assetPath": "assets/appearance/contact/contact-action-primary-v2.webp",
+  "bytes": 18698,
+  "sha256": "c20e33cdd55ea07cb6b8a5e7d69e45c201f17f11fc423902e65b2420e944ec1b",
+  "width": 768,
+  "height": 256,
+  "alphaExpected": true,
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "generationMode": "built-in-imagegen",
+  "sourceGenerationId": "exec-c639c25a-cbfd-4d56-a82f-e3d905e77f02.png",
+  "prompt": "Reference image role: visual-material reference only; do not edit it. Create one blank production-ready primary action button skin for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered horizontal rounded rectangle, 3:1 ratio, 14px visual corner radius, pale cobalt-to-mist-aqua mineral glass, calm but clearly actionable, fine inner highlight, subtle offset shadow, uncluttered center for real DOM label and icon. Constraints: no text, no letters, no numbers, no icon, no logo, no watermark, no extra buttons, no surrounding panel, no glow halo, no baked hover state; preserve genuine alpha transparency. Output intent: reusable button ::before texture, polished at 44–48px real control height, with sufficient dark-text contrast.",
+  "createdAt": "2026-08-29T16:32:58.153Z"
+}

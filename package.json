@@ -1,0 +1,23 @@
+{
+  "name": "relationship-care",
+  "version": "0.1.0",
+  "productName": "关系回响",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.mjs",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "app:dev": "electron .",
+    "test:electron-smoke": "node scripts/run-electron-smoke.mjs",
+    "dist:mac": "electron-builder --mac --universal -c.mac.notarize=true -c.mac.forceCodeSigning=true -c.mac.hardenedRuntime=true",
+    "dist:mac:dir": "electron-builder --mac dir --universal -c.mac.notarize=false -c.mac.forceCodeSigning=false -c.mac.hardenedRuntime=false -c.mac.identity=null",
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "electron": "43.4.1",
+    "electron-builder": "26.15.7"
+  }
+}

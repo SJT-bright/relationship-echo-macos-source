@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "asset": "build/icon.png",
+  "purpose": "macOS application icon master artwork",
+  "dimensions": {
+    "width": 1254,
+    "height": 1254
+  },
+  "bytes": 1507128,
+  "sha256": "4095c1f9d8bb69c4f89fc53cb16fe1b4d75b54f2048c476d656dc3a155d98e25",
+  "generator": "OpenAI built-in image_gen",
+  "createdAt": "2026-08-30T15:34:37.6055795+08:00",
+  "referenceAsset": "assets/appearance/contact/avatar-echo-medallion-v2.webp",
+  "prompt": "Use case: logo-brand\nAsset type: production macOS application icon, square 1024×1024 master artwork\nInput image: use the provided mineral-glass echo medallion only as a visual-material and palette reference; do not simply paste or edit it\nPrimary request: create a distinctive icon for a private relationship-care app, conveying a gentle relationship echo and recurring connection\nScene/backdrop: full-bleed pearl-white and very pale mist-aqua mineral glass field with subtle depth, designed for Apple desktop\nSubject: one refined translucent circular echo ring, incomplete at the lower-right, with three small luminous relationship nodes orbiting or softly connected around the ring; calm, balanced, instantly recognizable at Dock size\nStyle/medium: premium dimensional glass icon, restrained Apple-level polish, tactile but not photorealistic, crisp silhouette, soft internal highlights, no excessive glow\nComposition/framing: centered square composition; keep all essential details inside the central 78% safe area; artwork fills the square but do not bake rounded corners or an external drop shadow because macOS applies the icon mask\nLighting/mood: soft northern daylight, quiet, trustworthy, private, optimistic\nColor palette: pearl white, sea-glass aqua, subtle cobalt edge, a tiny warm brass accent on one node\nMaterials/textures: translucent mineral glass, finely frosted center, smooth caustic highlights, clean edges\nConstraints: no text, no Chinese characters, no letters, no numbers, no faces, no people, no chat bubble, no WeChat logo, no Apple logo, no watermark, no mock UI, no device frame, no baked rounded-square border; must remain legible at 32px and 64px\nAvoid: neon cyberpunk, saturated green, heavy gradients, busy micro-details, generic speech-bubble icon, stock logo appearance"
+}

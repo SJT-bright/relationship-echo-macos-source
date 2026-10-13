@@ -1,0 +1,59 @@
+appId: com.relationshipecho.app
+productName: 关系回响
+asar: true
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - index.html
+  - share.html
+  - share.css
+  - styles.css
+  - favicon.svg
+  - server.mjs
+  - src/**/*
+  - server/**/*
+  - desktop/**/*
+  - assets/**/*
+  - samples/**/*
+  - package.json
+  - "!tests/**/*"
+  - "!**/*.test.*"
+  - "!**/*.sqlite"
+  - "!**/*.sqlite-*"
+  - "!**/relationship-care-data/**/*"
+  - "!**/backups/**/*"
+  - "!**/logs/**/*"
+  - "!**/*.log"
+  - "!**/.tmp/**/*"
+  - "!**/.impeccable/**/*"
+  - "!**/.review*/**/*"
+  - "!**/review/**/*"
+  - "!**/artifacts/**/*"
+  - "!**/dist/**/*"
+
+mac:
+  icon: build/icon.png
+  target:
+    - target: dmg
+      arch:
+        - universal
+    - target: zip
+      arch:
+        - universal
+  category: public.app-category.productivity
+  minimumSystemVersion: "12.0"
+  hardenedRuntime: true
+  forceCodeSigning: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  # Local `dir` builds stay credential-free. The release script explicitly
+  # enables notarization, which reads Apple's standard environment variables.
+  notarize: false
+
+dmg:
+  artifactName: "${productName}-${version}-${arch}.${ext}"
+
+artifactName: "${productName}-${version}-${arch}.${ext}"

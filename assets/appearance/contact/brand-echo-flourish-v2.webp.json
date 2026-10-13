@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "assetPath": "assets/appearance/contact/brand-echo-flourish-v2.webp",
+  "bytes": 50628,
+  "sha256": "6e7b75c869f4a0d9f9996a192e3104499ba93aad5a5d336327629246e6bab0fa",
+  "width": 1024,
+  "height": 341,
+  "alphaExpected": true,
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "generationMode": "built-in-imagegen",
+  "sourceGenerationId": "exec-0fec9a79-6c63-4de4-956a-a4097135bd86.png",
+  "prompt": "Reference image role: visual-material reference only; do not edit it. Create a production-ready non-text brand flourish for the Chinese product title of a private relationship-care app. Scene/backdrop: genuinely transparent background. Subject: one asymmetrical, wide and low composition combining a restrained East Asian brush-tail gesture with two faint concentric echo rings and a small translucent mineral seal-like accent; pearl white, mist aqua, pale cobalt and a trace of deep ink teal; refined, contemporary, airy. Composition: horizontal 4:1 asset, leave the central-left area quiet so real DOM title text can sit over it; flourish should trail toward the right. Constraints: absolutely no Chinese characters, no letters, no words, no numbers, no calligraphy glyphs, no logo, no watermark, no person, no UI panel; preserve genuine alpha transparency. Output intent: accessible decorative layer behind a real semantic title, subtle artistic lettering support rather than a standalone logo.",
+  "createdAt": "2026-08-29T16:32:58.392Z"
+}

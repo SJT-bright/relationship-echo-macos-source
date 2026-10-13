@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>关系回响 · Mac 迁移</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Kaiti SC", "STKaiti", sans-serif; background:#edf5f4; color:#183331; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; padding:48px 24px; background:radial-gradient(circle at 70% 8%,rgba(255,255,255,.95),transparent 36%),linear-gradient(145deg,#f7faf9,#e5f1f0 52%,#d8eded); }
+    main { width:min(760px,100%); margin:auto; padding:42px; border:1px solid rgba(73,122,118,.2); border-radius:32px; background:rgba(255,255,255,.76); box-shadow:0 24px 70px rgba(48,94,91,.14); backdrop-filter:blur(22px); }
+    .mark { width:70px; height:70px; border-radius:23px; display:grid; place-items:center; margin-bottom:24px; color:#087b77; font-size:34px; background:linear-gradient(145deg,#fff,#cdebea); box-shadow:inset 0 1px 0 #fff,0 12px 30px rgba(24,111,106,.16); }
+    h1 { margin:0 0 10px; font-size:clamp(32px,6vw,52px); letter-spacing:.08em; font-family:"Kaiti SC","STKaiti",serif; font-weight:900; }
+    .lead { margin:0 0 30px; color:#57706e; font-size:17px; line-height:1.75; }
+    ol { margin:0; padding-left:24px; }
+    li { margin:16px 0; padding-left:6px; line-height:1.72; }
+    code { overflow-wrap:anywhere; padding:.18em .45em; border-radius:8px; background:#e5f1ef; color:#075f5c; }
+    aside { margin-top:28px; padding:18px 20px; border-radius:18px; background:#f7f3e9; color:#67573b; line-height:1.65; }
+    strong { font-weight:800; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">◌</div>
+    <h1>关系回响</h1>
+    <p class="lead">把 Windows 上的联系人安全迁到 Mac，并在本机生成一个独立 App。</p>
+    <ol>
+      <li>先在 Mac 安装 <strong>Node.js 24 LTS</strong>，并保持联网。</li>
+      <li>确认你已经另外保存了“迁移密码与校验”文件；密码和可信 ZIP SHA-256 都不在这个 ZIP 里。</li>
+      <li>解压前先按私密校验文件中的命令核对 ZIP SHA-256；完全一致后，才双击 <code>在Mac上构建关系回响.command</code>。</li>
+      <li>完成后只需打开 <code>~/Applications/关系回响.app</code>。数据保存在 <code>~/Library/Application Support/Relationship Echo</code>。</li>
+    </ol>
+    <aside>如果 macOS 阻止第一次打开，请到“系统设置 → 隐私与安全性”确认“仍要打开”。这是个人本机构建包，Windows 端无法代替 Mac 完成 Apple 官方签名与公证。</aside>
+  </main>
+</body>
+</html>

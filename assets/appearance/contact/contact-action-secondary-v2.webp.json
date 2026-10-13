@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "assetPath": "assets/appearance/contact/contact-action-secondary-v2.webp",
+  "bytes": 16406,
+  "sha256": "a62508951be0b48108c76e5de4363403a4249b60a6eb7c81f7aa0a48bd4775d6",
+  "width": 768,
+  "height": 256,
+  "alphaExpected": true,
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "generationMode": "built-in-imagegen",
+  "sourceGenerationId": "exec-b1c91e86-f6e4-4bee-877c-e9846900c20e.png",
+  "prompt": "Reference image role: visual-material reference only; do not edit it. Create one blank production-ready secondary action button skin for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered horizontal rounded rectangle, 3:1 ratio, 14px visual corner radius, pearl-white translucent mineral glass with a mist-aqua edge and thin internal highlight, quieter than a primary button, uncluttered center for real DOM label and icon. Constraints: no text, no letters, no numbers, no icon, no logo, no watermark, no extra buttons, no surrounding panel, no glow halo, no baked hover state; preserve genuine alpha transparency. Output intent: reusable secondary button ::before texture, polished at 44–48px real control height, readable against a pale contact-card surface.",
+  "createdAt": "2026-08-29T16:32:58.268Z"
+}

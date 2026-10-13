@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "contacts": [
+    {
+      "id": "sample-old-classmate",
+      "name": "示例同学",
+      "lastMessageAt": "2026-06-18T20:40:00+08:00",
+      "lastMessage": "她说最近开始学习攀岩，等天气凉快一起去体验。",
+      "tags": ["同学", "运动"],
+      "maintenanceIntent": "maintain",
+      "cadenceDays": 30
+    },
+    {
+      "id": "sample-collaborator",
+      "name": "示例伙伴",
+      "lastMessageAt": "2026-08-12T10:15:00+08:00",
+      "lastMessage": "项目阶段已经收尾，九月再同步一次后续想法。",
+      "tags": ["合作伙伴"],
+      "maintenanceIntent": "maintain",
+      "cadenceDays": 30
+    }
+  ]
+}

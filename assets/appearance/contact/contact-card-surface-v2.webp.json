@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "assetPath": "assets/appearance/contact/contact-card-surface-v2.webp",
+  "bytes": 12094,
+  "sha256": "bcdce043f60fea105523d2d3fd24cd40c05f20e02a31a52124bfc282044ff80a",
+  "width": 1600,
+  "height": 533,
+  "alphaExpected": false,
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "generationMode": "built-in-imagegen",
+  "sourceGenerationId": "exec-7f977a67-8a1e-4605-b30d-efe064b2d3da.png",
+  "prompt": "Reference image role: visual-material reference only; do not edit it. Create a production-ready reusable UI surface asset for a private relationship-care contact directory. Scene/backdrop: one completely blank, wide horizontal personal correspondence card, 3.2:1 landscape composition, matching the reference's pearl-white mineral glass, mist aqua, pale cobalt edge accents, subtle organic translucent layers. Key details: extremely quiet low-contrast center for dark Chinese UI text; a faint concentric echo-ring detail near the upper-right; soft mineral fold only along the far edges; refined 14px-corner-friendly silhouette; gentle offset depth and fine internal highlight; consistent enough to be reused behind every contact. Constraints: no text, no letters, no numbers, no people, no faces, no avatar, no icon, no button, no checkbox, no chat bubble, no logo, no watermark, no mock UI; no strong center texture; no baked shadows outside the card; full-bleed rectangular asset, no transparency required. Output intent: shippable shared Web UI background asset, clean, understated Apple-level polish, optimized visually for legible data over it.",
+  "createdAt": "2026-08-29T16:32:57.913Z"
+}

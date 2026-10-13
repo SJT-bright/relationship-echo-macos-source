@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "assetPath": "assets/appearance/contact/avatar-echo-medallion-v2.webp",
+  "bytes": 17310,
+  "sha256": "67195205a236834cd5340f20d72e49a7bc734f1bddcdb43c7afa5ae2ba797fe9",
+  "width": 256,
+  "height": 256,
+  "alphaExpected": true,
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "generationMode": "built-in-imagegen",
+  "sourceGenerationId": "exec-dea68070-24db-4858-96c1-915888a53630.png",
+  "prompt": "Reference image role: visual-material reference only; do not edit it. Create a production-ready reusable empty avatar medallion frame for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered circular double-layer mineral-glass ring, pearl white with mist-aqua and a very restrained pale-cobalt highlight, subtle metallic rim light, crisp silhouette, empty transparent center for a real DOM monogram. Key details: small quiet notch at lower-right reserved visually for a separate DOM status mark, but no actual badge or symbol; balanced at 256px app-icon precision. Constraints: no face, no person, no initials, no letters, no numbers, no text, no emoji, no icon glyph, no logo, no watermark, no drop shadow beyond a few pixels, no square plate; preserve genuine alpha transparency. Output intent: shippable transparent UI overlay reused for every contact avatar, elegant and privacy-safe.",
+  "createdAt": "2026-08-29T16:32:58.034Z"
+}

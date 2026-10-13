@@ -1,0 +1,21 @@
+{
+  "format": "relationship-care-source",
+  "version": 1,
+  "source": {
+    "providerId": "mac-reader-example",
+    "instanceId": "replace-with-stable-local-account-id",
+    "capabilities": [
+      "contacts",
+      "latestInteraction"
+    ]
+  },
+  "contacts": [
+    {
+      "externalKey": "sample-contact-001",
+      "name": "示例联系人",
+      "lastMessageAt": "2026-08-01T10:30:00+08:00",
+      "lastMessage": "示例摘要，不要在分享样例时放入真实私人内容",
+      "lastMessageType": "text"
+    }
+  ]
+}

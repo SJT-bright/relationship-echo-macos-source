@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "themeId": "private-echo-space-v1",
+  "generatedAt": "2026-08-30",
+  "privacyBoundary": "Prompts are built only from closed visual enums. Contact names, message text, WeChat identifiers, filesystem paths, access tokens, and database content are never prompt inputs. Generated contact visuals are shared decorative assets and never represent a real person.",
+  "tool": "OpenAI built-in image generation (imagegen)",
+  "toolId": "image_gen.imagegen",
+  "assets": {
+    "lightWide": {
+      "path": "assets/appearance/backgrounds/echo-glass-light-wide.webp",
+      "width": 1586,
+      "height": 992,
+      "bytes": 19716,
+      "sha256": "88c8f6e9105554dee1f2379bdfd141f7cf065c9bce1146f3b9d43d1ef85a93f6",
+      "promptId": "light-wide"
+    },
+    "darkWide": {
+      "path": "assets/appearance/backgrounds/echo-glass-dark-wide.webp",
+      "width": 1586,
+      "height": 992,
+      "bytes": 33208,
+      "sha256": "2894718e187544b35645ff5965345f70f76d7ed064842f0e1ccd0c83782282e7",
+      "promptId": "dark-wide"
+    },
+    "lightPortrait": {
+      "path": "assets/appearance/backgrounds/echo-glass-light-portrait.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 14956,
+      "sha256": "1b77d12727a26abc89067a782009865ced669275442309eb68888d94e1a8ab9c",
+      "promptId": "light-portrait"
+    },
+    "darkPortrait": {
+      "path": "assets/appearance/backgrounds/echo-glass-dark-portrait.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 47446,
+      "sha256": "957b784e3828da3c53b61eee29c720afb1f48d21e9e34c9fd3e87d20f2e3de5b",
+      "promptId": "dark-portrait"
+    },
+    "primaryControl": {
+      "path": "assets/appearance/skins/control-primary.webp",
+      "width": 1024,
+      "height": 342,
+      "bytes": 161690,
+      "sha256": "886611d8111741211e9e5628555d94a98b990c59146e4981eab78c71043bb576",
+      "capInsetsPercent": { "top": 30, "right": 22, "bottom": 30, "left": 22 },
+      "promptId": "primary-control-skin"
+    },
+    "neutralControl": {
+      "path": "assets/appearance/skins/control-neutral.webp",
+      "width": 1024,
+      "height": 342,
+      "bytes": 145066,
+      "sha256": "ca0b1136e8f5270b4f536e508b53ba3a9cef64a990340f48bdfeb8cc0cca4846",
+      "capInsetsPercent": { "top": 30, "right": 22, "bottom": 30, "left": 22 },
+      "promptId": "neutral-control-skin"
+    },
+    "contactSourceIllustration": {
+      "path": "assets/appearance/illustrations/contact-source.webp",
+      "width": 768,
+      "height": 512,
+      "bytes": 29486,
+      "sha256": "22fc4063e89076cb4bbfd14fcd6b16d4deebd3403a1d140a38f2e83e97596d3a",
+      "promptId": "contact-source-illustration"
+    },
+    "contactCardSurface": {
+      "path": "assets/appearance/contact/contact-card-surface-v2.webp",
+      "width": 1600,
+      "height": 533,
+      "bytes": 12094,
+      "sha256": "bcdce043f60fea105523d2d3fd24cd40c05f20e02a31a52124bfc282044ff80a",
+      "promptId": "contact-card-surface-v2",
+      "sourceGenerationId": "exec-7f977a67-8a1e-4605-b30d-efe064b2d3da.png",
+      "generationMode": "built-in-imagegen"
+    },
+    "avatarMedallion": {
+      "path": "assets/appearance/contact/avatar-echo-medallion-v2.webp",
+      "width": 256,
+      "height": 256,
+      "bytes": 17310,
+      "sha256": "67195205a236834cd5340f20d72e49a7bc734f1bddcdb43c7afa5ae2ba797fe9",
+      "promptId": "avatar-echo-medallion-v2",
+      "sourceGenerationId": "exec-dea68070-24db-4858-96c1-915888a53630.png",
+      "generationMode": "built-in-imagegen"
+    },
+    "contactPrimaryAction": {
+      "path": "assets/appearance/contact/contact-action-primary-v2.webp",
+      "width": 768,
+      "height": 256,
+      "bytes": 18698,
+      "sha256": "c20e33cdd55ea07cb6b8a5e7d69e45c201f17f11fc423902e65b2420e944ec1b",
+      "capInsetsPercent": { "top": 24, "right": 18, "bottom": 24, "left": 18 },
+      "promptId": "contact-action-primary-v2",
+      "sourceGenerationId": "exec-c639c25a-cbfd-4d56-a82f-e3d905e77f02.png",
+      "generationMode": "built-in-imagegen"
+    },
+    "contactSecondaryAction": {
+      "path": "assets/appearance/contact/contact-action-secondary-v2.webp",
+      "width": 768,
+      "height": 256,
+      "bytes": 16406,
+      "sha256": "a62508951be0b48108c76e5de4363403a4249b60a6eb7c81f7aa0a48bd4775d6",
+      "capInsetsPercent": { "top": 24, "right": 18, "bottom": 24, "left": 18 },
+      "promptId": "contact-action-secondary-v2",
+      "sourceGenerationId": "exec-b1c91e86-f6e4-4bee-877c-e9846900c20e.png",
+      "generationMode": "built-in-imagegen"
+    },
+    "brandFlourish": {
+      "path": "assets/appearance/contact/brand-echo-flourish-v2.webp",
+      "width": 1024,
+      "height": 341,
+      "bytes": 50628,
+      "sha256": "6e7b75c869f4a0d9f9996a192e3104499ba93aad5a5d336327629246e6bab0fa",
+      "promptId": "brand-echo-flourish-v2",
+      "sourceGenerationId": "exec-0fec9a79-6c63-4de4-956a-a4097135bd86.png",
+      "generationMode": "built-in-imagegen"
+    }
+  },
+  "prompts": {
+    "light-wide": "Premium abstract application background for a private relationship-care workspace; macOS-inspired pearlescent mineral glass, pale celadon to cobalt ribbon, broad quiet center; no text, logos, people, faces, chat bubbles, QR codes, icons, or UI screenshot.",
+    "dark-wide": "Premium abstract application background for a private relationship-care workspace; smoked graphite and deep blue-black mineral glass, restrained emerald to cobalt ribbon, low glare and quiet center; no text, logos, people, faces, chat bubbles, QR codes, icons, or UI screenshot.",
+    "light-portrait": "Portrait mobile abstract relationship-care background; pearlescent mineral glass, quiet upper two-thirds, celadon and cobalt movement in lower third; no text, logos, people, faces, chat bubbles, QR codes, icons, or UI screenshot.",
+    "dark-portrait": "Portrait mobile abstract relationship-care background; smoked graphite and blue-black mineral glass, quiet upper two-thirds, restrained emerald-to-cobalt light ribbon in the lower third; no text, logos, people, faces, chat bubbles, QR codes, icons, or UI screenshot.",
+    "primary-control-skin": "One centered translucent cobalt-to-emerald mineral-glass pill button skin on a transparent background; completely blank, no text or icon, no border crop, clean soft shadow.",
+    "neutral-control-skin": "One centered translucent pearl-silver mineral-glass pill button skin on a transparent background; completely blank, no text or icon, no border crop, clean soft shadow.",
+    "contact-source-illustration": "Abstract local data-source bridge made from translucent mineral-glass rings and connected light points; no people, text, logos, devices, chat bubbles, or product branding; transparent background.",
+    "contact-card-surface-v2": "Reference image role: visual-material reference only; do not edit it. Create a production-ready reusable UI surface asset for a private relationship-care contact directory. Scene/backdrop: one completely blank, wide horizontal personal correspondence card, 3.2:1 landscape composition, matching the reference's pearl-white mineral glass, mist aqua, pale cobalt edge accents, subtle organic translucent layers. Key details: extremely quiet low-contrast center for dark Chinese UI text; a faint concentric echo-ring detail near the upper-right; soft mineral fold only along the far edges; refined 14px-corner-friendly silhouette; gentle offset depth and fine internal highlight; consistent enough to be reused behind every contact. Constraints: no text, no letters, no numbers, no people, no faces, no avatar, no icon, no button, no checkbox, no chat bubble, no logo, no watermark, no mock UI; no strong center texture; no baked shadows outside the card; full-bleed rectangular asset, no transparency required. Output intent: shippable shared Web UI background asset, clean, understated Apple-level polish, optimized visually for legible data over it.",
+    "avatar-echo-medallion-v2": "Reference image role: visual-material reference only; do not edit it. Create a production-ready reusable empty avatar medallion frame for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered circular double-layer mineral-glass ring, pearl white with mist-aqua and a very restrained pale-cobalt highlight, subtle metallic rim light, crisp silhouette, empty transparent center for a real DOM monogram. Key details: small quiet notch at lower-right reserved visually for a separate DOM status mark, but no actual badge or symbol; balanced at 256px app-icon precision. Constraints: no face, no person, no initials, no letters, no numbers, no text, no emoji, no icon glyph, no logo, no watermark, no drop shadow beyond a few pixels, no square plate; preserve genuine alpha transparency. Output intent: shippable transparent UI overlay reused for every contact avatar, elegant and privacy-safe.",
+    "contact-action-primary-v2": "Reference image role: visual-material reference only; do not edit it. Create one blank production-ready primary action button skin for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered horizontal rounded rectangle, 3:1 ratio, 14px visual corner radius, pale cobalt-to-mist-aqua mineral glass, calm but clearly actionable, fine inner highlight, subtle offset shadow, uncluttered center for real DOM label and icon. Constraints: no text, no letters, no numbers, no icon, no logo, no watermark, no extra buttons, no surrounding panel, no glow halo, no baked hover state; preserve genuine alpha transparency. Output intent: reusable button ::before texture, polished at 44–48px real control height, with sufficient dark-text contrast.",
+    "contact-action-secondary-v2": "Reference image role: visual-material reference only; do not edit it. Create one blank production-ready secondary action button skin for a private contact directory. Scene/backdrop: genuinely transparent background. Subject: one centered horizontal rounded rectangle, 3:1 ratio, 14px visual corner radius, pearl-white translucent mineral glass with a mist-aqua edge and thin internal highlight, quieter than a primary button, uncluttered center for real DOM label and icon. Constraints: no text, no letters, no numbers, no icon, no logo, no watermark, no extra buttons, no surrounding panel, no glow halo, no baked hover state; preserve genuine alpha transparency. Output intent: reusable secondary button ::before texture, polished at 44–48px real control height, readable against a pale contact-card surface.",
+    "brand-echo-flourish-v2": "Reference image role: visual-material reference only; do not edit it. Create a production-ready non-text brand flourish for the Chinese product title of a private relationship-care app. Scene/backdrop: genuinely transparent background. Subject: one asymmetrical, wide and low composition combining a restrained East Asian brush-tail gesture with two faint concentric echo rings and a small translucent mineral seal-like accent; pearl white, mist aqua, pale cobalt and a trace of deep ink teal; refined, contemporary, airy. Composition: horizontal 4:1 asset, leave the central-left area quiet so real DOM title text can sit over it; flourish should trail toward the right. Constraints: absolutely no Chinese characters, no letters, no words, no numbers, no calligraphy glyphs, no logo, no watermark, no person, no UI panel; preserve genuine alpha transparency. Output intent: accessible decorative layer behind a real semantic title, subtle artistic lettering support rather than a standalone logo."
+  }
+}
